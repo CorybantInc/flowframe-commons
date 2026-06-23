@@ -1,0 +1,426 @@
+{
+  "metadata": {
+    "name": "FlowFrame Handoff Protocol Checklist",
+    "version": "1.7",
+    "created_by": "Aethir",
+    "date_created": "2025-09-28",
+    "last_update": "2026-06-12",
+    "purpose": "To standardize project continuity when partitioning work across chats or tools.",
+    "update_history": {
+      "1.2": ["Aethir", "2025-09-28", "First Release"],
+      "1.3": ["Mho, Aethir", "2025-10-10", "Extensions for Cadence Mapping: added Cadence section under handoff_criteria → interaction_cadence; Added a recording_artifacts block to ensure reusability via the manifest; added guideline 6."],
+      "1.4": ["Mho, Aethir", "2026-04-22", "Added reflexive_inquiry_loop handoff nature to support sub-threads where the work product must perform the framework it describes. Added reflexive_quality_check and performance_criteria to quality standards. Added guideline 7. Added reusable fields: reflexive_quality_criterion, north_star, parent_ml_reference, source_insights, manichean_devil_warnings."],
+      "1.5": ["Mho, Aethir", "2026-04-23", "Added file_update_recovery handoff nature in response to MCP write failure during protocol update. Added tool_write_protocol governing all direct file write operations: pre-flight verification, human-in-the-loop fallback, and post-write confirmation. Added guideline 8. Restored clarifying parenthetical in guideline 6 (dropped in manual upload). This update encodes permeability as a first-class design principle: the human participant is a capable and preferred recovery agent, not a fallback of last resort."],
+      "1.6": ["Claude (Aethir)", "2026-06-03", "Added design_and_implement handoff nature to support sub-threads that combine architectural evaluation with implementation execution. Added reusable fields: proposed_architecture, implementation_constraints, evaluation_criterion. Added variant note under sub_loop for technical_environment_setup tasks. Added guideline 9. Generated during docking phase of the FlowFrame White Paper reflexive_inquiry_loop — the loop that produced the interactive PDF paper and the Claude-native FlowFrame implementation."],
+      "1.7": ["Claude (Aethir)", "2026-06-12", "Two patches from the June 10–12, 2026 docking session. Patch 1: Extended tool_write_protocol pre_flight to include mandatory MCP tool surface verification before any file write. Rationale: a session-level tool surface mismatch (create_file lacking subfolder_id on the old MCP server schema) produced a silent write failure — files landed in the FlowFrame~CI root with no error. The failure was invisible until file location was checked. Environmental verification was implicit in prior protocol; this patch makes it explicit and mandatory. Patch 2: Added required item_0_tool_surface_verification block to the handoff template. Any handoff involving file writes must include an explicit Item 0 at the same structural level as atomic props loading. The distinction between 'the server supports X' and 'your session has access to X' is now a first-class protocol concern. Also fixed duplicate entry in reflexive_inquiry_loop output_format_contract (items B and C both labeled 'Source insights summary from parent M~L' — C relabeled 'Work product structure and reflexive criterion')."]
+    }
+  },
+  "recording_artifacts": {
+    "standard_name": "for example Cadence-Mapping Extension",
+    "spec_files": "list (e.g., cadence_mapping_spec.json, diagram_briefs.md section)",
+    "manifest_action": "[add or update] (to remind us to register it in standards_manifest.json)"
+  },
+  "tool_write_protocol": {
+    "purpose": "Governs all direct file write operations (create, update, delete) performed by the AI agent on FlowFrame~CI or any connected storage. Encodes permeability as a design principle: the human participant is a capable recovery agent whose involvement strengthens rather than weakens the protocol.",
+    "design_principle": "A protocol that assumes automation works is brittle. A protocol that treats the human participant as a capable and informed recovery agent is resilient. FlowFrame is a human-AI instrument: permeability — the human's ability to inspect, intervene, and repair — is a feature, not a fallback.",
+    "pre_flight": {
+      "description": "Steps to take before attempting any file write operation.",
+      "steps": [
+        "0. Verify MCP tool surface before any write attempt. Confirm that create_file has subfolder_id available by performing a test write (a minimal file named tool_verification.md) to the target subfolder using the subfolder_id parameter, then immediately listing the subfolder contents to confirm the file landed there. If the file appears in the subfolder: delete tool_verification.md and proceed. If the file appears in the FlowFrame~CI root instead: stop. Report to the human participant that the session was initialized against an older MCP server schema lacking subfolder_id, and request a new chat in the FlowFrame project. Do not attempt workarounds. Do not ask the human to move files manually. The correct resolution is a new session. Underlying principle: 'The MCP server supports X' and 'your session has access to X' are not the same statement. Tool schemas are injected at session initialization and do not update mid-session.",
+        "1. Confirm the target file exists and is readable via a read operation before attempting a write.",
+        "2. State explicitly to the human participant: the file that will be written, the nature of the change, and the expected outcome.",
+        "3. Generate a downloadable version of the intended new content before attempting the write, so recovery material is in hand regardless of write outcome."
+      ]
+    },
+    "write_attempt": {
+      "description": "Procedure during the write operation itself.",
+      "steps": [
+        "1. Attempt the write using the available tool.",
+        "2. If the tool returns a success confirmation, proceed to post-write verification.",
+        "3. If the tool returns an error or times out, immediately invoke the human_fallback procedure.",
+        "4. Do not retry a timed-out write without informing the human participant — repeated attempts on a failed connection are unlikely to succeed and consume time."
+      ]
+    },
+    "post_write_verification": {
+      "description": "Steps to confirm the write succeeded.",
+      "steps": [
+        "1. Immediately after a reported success, read the file back and confirm the content matches the intended update.",
+        "2. State the verification result explicitly to the human participant.",
+        "3. If the read-back does not match, invoke the human_fallback procedure even if the write reported success."
+      ]
+    },
+    "human_fallback": {
+      "description": "Procedure when automated write fails or cannot be verified. Treats the human participant as the recovery agent.",
+      "steps": [
+        "1. Inform the human participant clearly: the automated write failed, and manual recovery is needed.",
+        "2. Generate a downloadable file containing the complete intended new content — not a diff, but the full file — so the human can replace the file directly without needing to interpret partial changes.",
+        "3. Provide explicit instructions: where to upload the file, what to name it, and how to verify the upload succeeded.",
+        "4. Note the failure in the session record so it can inform protocol improvement in a subsequent loop."
+      ]
+    },
+    "permeability_note": "The human_fallback is not a degraded mode. In many cases it is the preferred mode: the human participant reviewing and uploading a complete file provides an additional quality check that automated writes bypass. FlowFrame does not seek to eliminate human involvement in file management — it seeks to make that involvement informed, efficient, and appropriately scoped."
+  },
+  "handoff_template": {
+    "description": "Canonical section structure for any handoff that involves file writes. Item 0 is required at the same structural level as atomic props loading — it is an initialization step, not a preliminary.",
+    "required_sections": [
+      {
+        "item": "0",
+        "title": "Tool Surface Verification",
+        "required_for": "Any handoff involving file writes to Claude-native/ or other subfolders",
+        "content": "Verify that the session's create_file tool includes subfolder_id by performing a test write to the target subfolder and confirming file location. See tool_write_protocol.pre_flight.steps[0] for the full procedure. If verification fails, stop and request a new chat. Do not proceed with file write work items until verification succeeds."
+      },
+      {
+        "item": "0B",
+        "title": "Atomic Props Loading",
+        "required_for": "All handoffs",
+        "content": "Load all files specified in the handoff's ATOMIC PROPS section before proceeding to content work. These are the operating context. Everything else is downstream of them."
+      }
+    ],
+    "note": "The ordering of Item 0 (tool surface) before Item 0B (atomic props) is intentional. Environmental verification precedes content work. A session that cannot write is not ready to begin content work, regardless of what it knows about the problem space."
+  },
+  "handoff_criteria": {
+    "core_context": {
+      "project_reference": [
+        "Project name and inquiry ID",
+        "CPRM layer and checkpoint reference"
+      ],
+      "session_scope": {
+        "problem_statement": "Current articulation of the problem motivating this session",
+        "proposed_solution_statement": "Hypothesized resolution or approach under consideration",
+        "success_measures": "Criteria or signals that will be used to evaluate progress",
+        "target_work_product": "Intended deliverable (e.g., narrative section, schema, diagram)"
+      },
+      "emphasized_imperatives": [
+        "Reception",
+        "Transparent Reasoning"
+      ]
+    },
+    "design_and_style": {
+      "target_audience": "Who this work product is for (executives, managers, technical teams, etc.)",
+      "resonance_expectation": "How the deliverable should land with the audience (credibility, curiosity, clarity, inspiration)",
+      "visual_and_formatting": [
+        "Visual design criteria (executive white paper aesthetic, diagram briefs, accent colors)",
+        "Formatting standards (LaTeX/Markdown conventions, template references)"
+      ]
+    },
+    "interaction_cadence": {
+      "handoff_nature": [
+        "sub_loop",
+        "next_phase_refinement",
+        "efficacy_review",
+        "concept_exploration",
+        "reflexive_inquiry_loop",
+        "file_update_recovery",
+        "design_and_implement"
+      ],
+      "artifact_expectations": "Draft → refine → finalize progression for outputs",
+      "cadence": {
+        "prompt_archetypes": "array of controlled terms (e.g., 'reflect-and-evaluate', 'compare-and-decide', 'generate-and-synthesize').",
+        "work_product_classes": "array (e.g., 'paragraph', 'schema (JSON)', 'diagram brief', 'table', 'checklist').",
+        "cadence_hypothesis": "short text linking archetypes to products (the pairing we intend to test).",
+        "tempo_and_pacing": "optional hints (e.g., 'double-loop cadence,' 'order test' : 'A→B vs B→A').",
+        "loop_health_signals": "what we'll watch (e.g., clarity gain, friction reduction, audience reception proxy), drawing on 'signals of health' used elsewhere in the matrix"
+      }
+    },
+    "sensitive_domains": {
+      "priority_domains": [
+        "Narrative consistency",
+        "Visual aesthetic uniformity",
+        "Epistemic/metaphorical scaffolding"
+      ],
+      "language_game_rules_priority": [
+        "Rules from rules_of_language_game_v1-1.json explicitly emphasized for this session"
+      ]
+    },
+    "tolerant_domains": [
+      "JSON schemas",
+      "Code modules",
+      "Independent diagrams or flowcharts"
+    ]
+  },
+  "guidelines": {
+    "1": "Always restate critical design and audience criteria at the start of new chats.",
+    "2": "Segment tolerant domains across chats; reserve sensitive domains for continuous sessions.",
+    "3": "Use FlowFrame project files (e.g., design_theme.md, template.tex) as anchors for continuity.",
+    "4": "Reinforce metabolization loop elements explicitly in handoff metadata.",
+    "5": "Highlight prioritized language game rules when needed for alignment.",
+    "6": "Capture cadence hypotheses as first-class metadata in handoffs; iterate into a reusable mapping if validated. (This reinforces guideline 4 [reinforce loop elements] and guideline 1 [restating criteria].)",
+    "7": "For reflexive_inquiry_loop handoffs: the sub-thread agent must be explicitly instructed that the work product is not merely about the framework — it must instantiate the framework in its own structure. The white paper must perform what it describes. Flag this as a quality criterion in every such handoff.",
+    "8": "For all file write operations: follow the tool_write_protocol. Generate a downloadable version of the complete intended file content before attempting any write. Do not treat automated write success as confirmed until a read-back verification has been completed. When writes fail, invoke the human_fallback immediately and record the failure for protocol improvement.",
+    "9": "For design_and_implement handoffs: the agent must evaluate the proposed_architecture before committing to implementation. The evaluation is a first-class deliverable, not a preamble. If the proposed architecture has a better alternative, the agent must name it and wait for human confirmation before proceeding to implementation. Do not implement without explicit human approval of the chosen approach.",
+    "10": "For any handoff involving file writes: Item 0 (tool surface verification) is a required initialization step at the same structural level as loading atomic props. 'The MCP server supports X' and 'your session has access to X' are not the same statement. Verify before acting on assumptions. If verification fails, stop and request a new session."
+  },
+  "handoff_protocol_extensions": {
+    "version": "1.3.0",
+    "added_handoff_natures": [
+      {
+        "handoff_nature": "site_content_population",
+        "description": "Repeatable handoff for populating a website (e.g., WordPress) with section-by-section content aligned to an existing FlowFrame artifact such as the Metabolization Loop white paper.",
+        "required_context_fields": [
+          "inquiry_id",
+          "project_reference",
+          "target_platform",
+          "site_pages",
+          "page_in_scope",
+          "section_in_scope",
+          "section_layout_description",
+          "content_already_placed",
+          "audience_profile",
+          "tone_constraints",
+          "source_artifacts"
+        ],
+        "recommended_context_fields": [
+          "seo_keywords",
+          "cta_map",
+          "image_style_constraints",
+          "word_count_targets",
+          "internal_link_targets",
+          "accessibility_requirements"
+        ],
+        "expected_outputs_per_section": [
+          "section_intent",
+          "headline_and_subhead",
+          "body_copy",
+          "visual_guidance",
+          "cta_recommendation",
+          "consistency_notes"
+        ],
+        "output_format_contract": {
+          "structure": [
+            "A) Section intent",
+            "B) Suggested headline + subhead",
+            "C) Body copy",
+            "D) Visual guidance (concepts + alt-text)",
+            "E) CTA recommendation",
+            "F) Notes on consistency with source artifacts"
+          ],
+          "variant_policy": "Provide Variant A (executive/pragmatic) and Variant B (reflective/invitational) when beneficial."
+        },
+        "quality_checks": [
+          "Web scannability (short paragraphs, bullets, clear headings).",
+          "No unsupported claims; avoid external assertions without citations.",
+          "Alignment to FlowFrame core: metabolization loops, instrument metaphor, cognitive load and trust continuity.",
+          "CTA alignment and internal link intent clarity.",
+          "Accessibility: alt-text for suggested images."
+        ]
+      },
+      {
+        "handoff_nature": "reflexive_inquiry_loop",
+        "description": "A sub-thread that is itself a metabolization loop — not merely a production task but a genuine inquiry loop with its own north star, hypothesis, and a work product that must perform the framework it describes. Distinguished from sub_loop by the requirement that the work product instantiates the FlowFrame framework in its own structure. The white paper is not just about FlowFrame — it is an instance of FlowFrame operating. Appropriate when the parent M~L has generated sufficient generative compression that the sub-thread must capture and demonstrate the framework's value simultaneously.",
+        "required_context_fields": [
+          "inquiry_id",
+          "parent_ml_reference",
+          "north_star",
+          "hypothesis_of_improved_state",
+          "source_insights",
+          "reflexive_quality_criterion",
+          "audience_profile",
+          "tone_constraints",
+          "atomic_props_reference",
+          "language_game_rules_priority"
+        ],
+        "recommended_context_fields": [
+          "key_concepts_generated",
+          "metaphors_and_framings_to_preserve",
+          "manichean_devil_warnings",
+          "performance_criteria"
+        ],
+        "expected_outputs": [
+          "white_paper_draft",
+          "hypothesis_statement",
+          "framework_demonstration_evidence",
+          "recommended_next_loop"
+        ],
+        "output_format_contract": {
+          "structure": [
+            "A) Restatement of north star and hypothesis",
+            "B) Source insights summary from parent M~L",
+            "C) Work product structure and reflexive criterion — how the paper must instantiate the framework it describes",
+            "D) Reflexive quality check — does the paper perform what it describes?",
+            "E) Recommended next loop or open questions"
+          ],
+          "variant_policy": "Provide Variant A (academic/rigorous) and Variant B (practitioner/accessible) for white paper sections where the audience bifurcates."
+        },
+        "quality_checks": [
+          "Reflexive criterion: the white paper must instantiate the FlowFrame framework in its own structure, not merely describe it.",
+          "Generative compression: the paper must demonstrate that the framework produces insights not present in its inputs.",
+          "Problem space fidelity: the paper must remain faithful to what the problem space insists on, not what is convenient to argue.",
+          "Invariance under transformation: the core claims must hold across the different domains the M~L traversed.",
+          "No premature closure: the paper must honor the stochastic, iterative nature of FlowFrame — terminal improved states are north stars, not destinations.",
+          "Language game consistency: terminology must align with rules_of_language_game_v1-1.json throughout."
+        ]
+      },
+      {
+        "handoff_nature": "file_update_recovery",
+        "description": "A focused sub-thread launched when an automated file write operation fails or cannot be verified. The purpose is dual: (1) diagnose the failure and implement a robust recovery, and (2) improve the protocol so the failure mode is better handled in future loops. Encodes permeability as a design principle — the human participant's involvement in file management is treated as an asset, not a limitation.",
+        "required_context_fields": [
+          "inquiry_id",
+          "parent_ml_reference",
+          "failed_operation_description",
+          "intended_file_content",
+          "target_file_path",
+          "failure_mode",
+          "recovery_priority"
+        ],
+        "recommended_context_fields": [
+          "tool_used",
+          "error_message_or_timeout_description",
+          "downstream_dependencies",
+          "protocol_improvement_scope"
+        ],
+        "expected_outputs": [
+          "failure_diagnosis",
+          "complete_replacement_file_for_manual_upload",
+          "manual_upload_instructions",
+          "protocol_improvement_recommendations",
+          "updated_protocol_file_if_applicable"
+        ],
+        "output_format_contract": {
+          "structure": [
+            "A) Failure diagnosis — what happened and why",
+            "B) Complete replacement file — full content, not a diff, ready for manual upload",
+            "C) Manual upload instructions — precise steps for the human participant",
+            "D) Verification instructions — how to confirm the upload succeeded",
+            "E) Protocol improvement recommendations — what scaffolding would prevent recurrence",
+            "F) Updated protocol file — if improvements were identified, generate the updated file for manual upload"
+          ],
+          "variant_policy": "Single variant — recovery sub-threads prioritize clarity and precision over stylistic variation."
+        },
+        "quality_checks": [
+          "The replacement file must be complete — a full file ready to replace the target, not a partial update or diff.",
+          "Manual upload instructions must be precise enough for a non-technical participant to follow without ambiguity.",
+          "Failure diagnosis must distinguish between infrastructure failure (tool/connection) and procedural failure (protocol gap).",
+          "Protocol improvement recommendations must respect the permeability principle.",
+          "If the failure exposed a gap in the handoff protocol itself, an updated protocol file must be generated."
+        ]
+      },
+      {
+        "handoff_nature": "design_and_implement",
+        "description": "A sub-thread that combines architectural evaluation with implementation execution. The agent first evaluates a proposed architecture (or designs one if none is proposed), presents alternatives with honest tradeoffs, waits for human confirmation of the chosen approach, and then implements it. Distinguished from sub_loop by the mandatory evaluation phase before implementation begins, and from concept_exploration by the requirement to produce working implementation artifacts. Appropriate when the human participant has a mental model of the desired system but is explicitly open to better approaches, and when the implementation requires technical judgment about platform, infrastructure, or tooling choices.",
+        "required_context_fields": [
+          "inquiry_id",
+          "parent_ml_reference",
+          "problem_statement",
+          "proposed_architecture",
+          "implementation_constraints",
+          "evaluation_criterion",
+          "target_work_product"
+        ],
+        "recommended_context_fields": [
+          "platform_preferences",
+          "existing_assets_to_reuse",
+          "audience_profile",
+          "hosting_environment",
+          "downstream_dependencies"
+        ],
+        "expected_outputs": [
+          "architecture_evaluation",
+          "recommended_approach_with_rationale",
+          "alternatives_considered",
+          "implementation_artifacts",
+          "deployment_or_integration_instructions"
+        ],
+        "output_format_contract": {
+          "structure": [
+            "A) Architecture evaluation — honest assessment of the proposed approach, named strengths and weaknesses",
+            "B) Recommended approach — the agent's recommendation with explicit rationale",
+            "C) Alternatives considered — at least one alternative with tradeoffs named",
+            "D) Confirmation request — explicit pause for human approval before implementation begins",
+            "E) Implementation artifacts — produced after human confirmation",
+            "F) Deployment or integration instructions — how to activate what was built"
+          ],
+          "variant_policy": "Single evaluation variant before confirmation; implementation may have variants if the human requests alternatives during the confirmation step."
+        },
+        "quality_checks": [
+          "The evaluation phase must be completed before any implementation artifacts are produced — do not implement before confirmation.",
+          "Alternatives must be genuinely considered, not constructed to make the recommendation look better by comparison.",
+          "Implementation constraints must be respected.",
+          "Deployment instructions must be precise enough for the human participant to activate the implementation without the agent present.",
+          "If the recommended approach differs from the proposed_architecture, the agent must name the difference explicitly.",
+          "Guideline 9 applies: wait for explicit human confirmation before producing implementation artifacts."
+        ]
+      }
+    ],
+    "added_reusable_fields": {
+      "target_platform": {
+        "description": "The delivery medium for the work product.",
+        "type": "string",
+        "examples": ["WordPress", "GitHub Pages", "Netlify"]
+      },
+      "section_layout_description": {
+        "description": "A compact description of the layout and constraints for the section.",
+        "type": "string"
+      },
+      "content_already_placed": {
+        "description": "What is already in the section.",
+        "type": "object"
+      },
+      "cta_map": {
+        "description": "A mapping of calls-to-action.",
+        "type": "object"
+      },
+      "seo_keywords": {
+        "description": "Optional keywords to guide headings and meta descriptions.",
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "accessibility_requirements": {
+        "description": "Alt-text expectations and readability constraints.",
+        "type": "object"
+      },
+      "reflexive_quality_criterion": {
+        "description": "An explicit statement of how the work product must instantiate the framework it describes.",
+        "type": "string"
+      },
+      "north_star": {
+        "description": "The orienting but unreachable ideal state that guides a reflexive_inquiry_loop.",
+        "type": "string"
+      },
+      "parent_ml_reference": {
+        "description": "Reference to the parent metabolization loop from which this sub-thread was launched.",
+        "type": "string"
+      },
+      "source_insights": {
+        "description": "The distilled generative compressions produced by the parent M~L that the sub-thread must carry forward.",
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "manichean_devil_warnings": {
+        "description": "Explicit flags for unresolved productive tensions the sub-thread should hold open.",
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "failed_operation_description": {
+        "description": "A clear statement of what file operation was attempted and what the intended outcome was.",
+        "type": "string"
+      },
+      "failure_mode": {
+        "description": "Classification of the failure.",
+        "type": "string",
+        "enum": ["infrastructure", "procedural", "both"]
+      },
+      "recovery_priority": {
+        "description": "Whether the sub-thread should prioritize immediate file recovery, protocol improvement, or both equally.",
+        "type": "string",
+        "enum": ["immediate_recovery", "protocol_improvement", "both"]
+      },
+      "intended_file_content": {
+        "description": "The complete intended content of the file that failed to write.",
+        "type": "string"
+      },
+      "proposed_architecture": {
+        "description": "The human participant's initial mental model of the desired system design. Carried in design_and_implement handoffs so the agent can evaluate it before recommending an approach.",
+        "type": "string"
+      },
+      "implementation_constraints": {
+        "description": "Platform, hosting, licensing, tooling, or budget constraints that bound the implementation space.",
+        "type": "object",
+        "examples": ["platform: GitHub Pages", "hosting: no server-side infrastructure", "licensing: open source only"]
+      },
+      "evaluation_criterion": {
+        "description": "What makes one implementation approach better than another for this specific context.",
+        "type": "string"
+      }
+    }
+  }
+}

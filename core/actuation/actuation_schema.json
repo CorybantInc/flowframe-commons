@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "actuation_id": "unique identifier for this actuation object",
+  "actuation_scope": "node | service",
+  "commons_ref": "URL to flowframe-commons at a specific commit, or @main",
+  "framing": {
+    "problem_statement": "...",
+    "hypothesis_of_improved_state": "...",
+    "success_measures": ["..."],
+    "external_factors": ["..."]
+  },
+  "invitation": "The opening text the AI agent addresses to the human participant",
+  "author_context": "Optional: what the human participant should know about the source",
+  "scope_constraints": "Optional: what this loop is and is not for"
+}

@@ -1,0 +1,180 @@
+{
+  "version": "1.0",
+  "artifact_type": "flowframe_portable_model",
+  "meta": {
+    "name": "FlowFrame Metabolization Loop – Portable Model",
+    "description": "Compact conceptual model of FlowFrame and metabolization loops for initializing new human–AI collaboration projects without loading the full white paper.",
+    "intended_use": [
+      "Seed new ChatGPT projects with a shared understanding of FlowFrame.",
+      "Support creation of presentations, notes, and analyses about FlowFrame and metabolization loops.",
+      "Provide a reference frame for reasoning about strategy management and human–AI collaboration."
+    ]
+  },
+  "problem_hypothesis_measure": {
+    "problem": "When humans and large models co-create, cognitive load and trust continuity become limiting factors.",
+    "hypothesis_of_improved_state": "These limits can be mitigated by using an instrument that, without compromising AI’s ability to accelerate responses, structures progress and preserves reasoning as reusable assets.",
+    "measure_of_improvement": "Organizations are able to metabolize AI dialogue into sustainable outcomes that compound over time when strategy management is explicitly framed as structured problem resolution."
+  },
+  "core_concepts": {
+    "flowframe": {
+      "definition": "FlowFrame is a living instrument and environment for structured problem resolution in human–AI collaboration. It frames work as metabolization loops that convert reflection and reasoning into durable, auditable knowledge and action.",
+      "three_faces": [
+        "Human-facing: experience of collaboration, cadence, meaning, joy in purposeful work.",
+        "System-facing: architecture, protocols, standards, traceability, and governance.",
+        "Instrument itself: the design grammar that ties loops, roles, and artifacts together."
+      ],
+      "three_elements": {
+        "frame": "Defines purpose, boundaries, roles, and constraints of the collaboration.",
+        "flow": "Defines the rhythm and sequence of attention; how loops move from reception to outcomes.",
+        "persistence": "Ensures that reasoning, decisions, and artifacts are captured as reusable knowledge assets."
+      }
+    },
+    "metabolization": {
+      "definition": "Metabolization is the process by which dialogue between human and AI is transformed into structured learning and durable work products. It is not just conversation; it is conversation that leaves a trace the next loop can learn from.",
+      "why_metabolization": [
+        "Emphasizes transformation rather than mere exchange: inputs become energy for future improvement.",
+        "Makes work products into evidence of becoming, not just final outputs.",
+        "Provides a natural metaphor for continuous adaptation and learning at individual, team, and enterprise levels."
+      ]
+    }
+  },
+  "metabolization_loop": {
+    "overview": "A metabolization loop is a recurring, non-sequential cycle of attention that connects problem, hypothesis, measure, and work product into a coherent learning process.",
+    "orientations_of_attention": [
+      {
+        "name": "Reception",
+        "description": "Noticing and taking in signals: data, events, narratives, concerns, questions."
+      },
+      {
+        "name": "Resonance",
+        "description": "Sensing what matters: alignment with goals, intuition, salience for the current context."
+      },
+      {
+        "name": "Manipulation",
+        "description": "Working with the material: reframing, structuring, modeling, drafting alternatives."
+      },
+      {
+        "name": "Reflection",
+        "description": "Stepping back to evaluate meaning, implications, and coherence with purpose."
+      },
+      {
+        "name": "Transparent Reasoning",
+        "description": "Making the logic explicit: assumptions, rationale, tradeoffs, and link to measures."
+      },
+      {
+        "name": "Pragmatic Outcomes",
+        "description": "Producing work products and decisions that can be acted on and later reviewed as evidence of learning."
+      }
+    ],
+    "key_properties": [
+      "The six orientations are NOT rigid stages; they are recurring modes of attention that can appear in different orders and combinations.",
+      "Loops are anchored in a problem–hypothesis–measure triad and must result in at least one work product that can serve as evidence of becoming.",
+      "Each loop is a value-creating event, not just a step toward an external deliverable."
+    ]
+  },
+  "roles_and_collaboration": {
+    "strategy_manager": {
+      "description": "The human lead responsible for framing problems, interpreting outcomes, and ensuring alignment with organizational purpose.",
+      "responsibilities": [
+        "Pose and refine problem statements and hypotheses of improved state.",
+        "Define success measures and evaluate whether outcomes constitute improvement.",
+        "Direct and interpret metabolization loops rather than micromanaging tasks.",
+        "Act as conductor of attention across multiple loops and participants."
+      ]
+    },
+    "ai_agent": {
+      "description": "The AI collaborator (e.g., ChatGPT) that provides reasoning support, reformulations, alternative framings, and structured records.",
+      "responsibilities": [
+        "Help articulate and refine problem, hypothesis, and measures.",
+        "Generate arguments that support and challenge hypotheses.",
+        "Maintain transparent reasoning and suggest structure for metabolization records.",
+        "Help transform conversational content into coherent, reusable artifacts."
+      ]
+    },
+    "collaboration_pattern": {
+      "summary": "Human and AI co-direct attention within metabolization loops. The human anchors purpose and judgment; the AI provides breadth, structure, and memory. Trust is maintained through traceability and reflective checkpoints.",
+      "risks_addressed": [
+        "Cognitive overload on the human side when managing complex reasoning over time.",
+        "Loss of trust when decisions and AI contributions are not traceable or explainable.",
+        "Premature closure when polished outputs discourage further questioning or iteration."
+      ]
+    }
+  },
+  "governance_and_standards": {
+    "governance_as_immune_and_nervous_system": "Governance in FlowFrame protects coherence (immune function) and distributes awareness (nervous function). It prevents drift while enabling adaptation.",
+    "standards_and_protocols": [
+      "Handoff protocol: ensures continuity when a loop moves between agents, teams, or contexts.",
+      "Standards manifest: enumerates available conventions, templates, and tokens so they are discoverable.",
+      "Sync protocol: aligns loops and prevents divergence of parallel efforts working on related problems."
+    ],
+    "tokens": [
+      "Inquiry IDs: stable identifiers for loops or problem threads.",
+      "Checkpoints: explicit moments where reasoning and state are summarized.",
+      "Rationales: short, explicit statements of why a decision or design choice was made."
+    ],
+    "governance_principles": [
+      "Deferred binding: avoid prematurely tying imperatives to fixed technical or organizational layers.",
+      "Traceability: make reasoning visible so decisions can be reviewed, audited, and learned from.",
+      "Graduated rigor: allow different parts of the organization to operate with appropriate levels of oversight and structure."
+    ]
+  },
+  "work_products": {
+    "definition": "Work products are artifacts produced by metabolization loops—documents, diagrams, decisions, protocols, presentations, or code—that embody the learning of the loop.",
+    "epistemic_role": [
+      "Work products are not only outputs; they are evidence of becoming: they show how insight was turned into form.",
+      "When revisited, they re-enter the metabolization loop as inputs: prompts, examples, or constraints for new loops.",
+      "A metabolization loop is fully characterized only when it produces at least one work product that can be used to measure improvement."
+    ],
+    "examples": [
+      "A white paper that describes and performs FlowFrame.",
+      "A four-slide presentation that helps a specific executive see themselves in the model.",
+      "A revised governance protocol linked to specific Inquiry IDs and rationales."
+    ]
+  },
+  "affective_attributes": {
+    "thoughtfulness": {
+      "definition": "The discipline of slowing down enough to notice what matters and to make reasoning explicit.",
+      "effects": [
+        "Preserves human discernment in the presence of fast AI-generated output.",
+        "Encourages transparent reasoning rather than opaque recommendation.",
+        "Prevents governance from collapsing into mere compliance."
+      ]
+    },
+    "pragmatic_joyfulness": {
+      "definition": "A grounded pleasure in making progress together; the feeling that collaboration is meaningful and effective.",
+      "effects": [
+        "Signals system health: when participants feel engaged and purposeful, learning accelerates.",
+        "Reduces the barrier created by over-polished artifacts by reframing work as ongoing play rather than final judgment.",
+        "Helps leaders be seen as credible and committed rather than distant or performative."
+      ]
+    }
+  },
+  "language_game_and_cprm_hooks": {
+    "language_game_rules_summary": [
+      "Shared lexicon: define and reuse core terms (problem, hypothesis, metabolization loop, work product, governance, etc.).",
+      "Levels of abstraction: make explicit when a statement is about a specific case vs. the general method.",
+      "Transparent reasoning: ask for and provide explicit rationales, counterarguments, and alternative framings.",
+      "Meta-communication (Rule 7): periodically step back to talk about how the dialogue is proceeding, not just about its content."
+    ],
+    "cprm_mapping": {
+      "problem_space": "Problem statement and current constraints.",
+      "improved_state_hypotheses": "Hypotheses of improvement embodied in design and process changes.",
+      "measures": "Indicators that improvement is real and compounding over time.",
+      "work_products_layer": "Artifacts that embody and evidence the movement toward improved state."
+    }
+  },
+  "usage_guidance_for_new_agents": {
+    "how_to_use_this_model": [
+      "Treat this JSON as the conceptual grounding for FlowFrame and metabolization loops.",
+      "When asked to explain FlowFrame, begin from the problem–hypothesis–measure triad, then describe metabolization loops and work products.",
+      "When helping a user design a presentation or memo about FlowFrame, align content with the core_concepts, metabolization_loop, roles_and_collaboration, governance_and_standards, and work_products sections.",
+      "When asked for examples or scenarios, instantiate concrete loops using this structure: problem → hypothesis → measure → work product, and explicitly refer to the six orientations of attention when relevant."
+    ],
+    "good_initial_prompts": [
+      "Using the FlowFrame portable model JSON, explain to me what FlowFrame is and why metabolization is the right metaphor for human–AI collaboration in strategy management.",
+      "Using the FlowFrame portable model JSON, help me create a 4-slide presentation that will help a specific executive see themselves and their organization inside the FlowFrame model.",
+      "Using the FlowFrame portable model JSON, design a metabolization loop for a strategic initiative, including problem, hypothesis of improved state, measures, and a candidate work product.",
+      "Using the FlowFrame portable model JSON, analyze how cognitive load and trust continuity show up in my organization’s current use of AI, and suggest how FlowFrame could help."
+    ]
+  }
+}
